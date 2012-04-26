@@ -9,6 +9,7 @@
     <property name="glassfish.home" value="${basedir}/glassfish-2.1.1"/>
     <available file="${glassfish.home}/bin" type="dir" property="glassfish.bin.is.present"/>
     <property name="test.results.dir" value="${basedir}/soapui_output"/>
+    <property name="soapui.settings.file" value="${basedir}/soapui-settings.xml"/>
     
     <target name="install-and-test" depends="install">
         <antcall target="test"/>
@@ -41,15 +42,23 @@
     </target>
     
     <target name="cleanup">
-        <!--delete dir="${temp.staging.dir}"/-->
+        <delete dir="${temp.staging.dir}"/>
     </target>
     
     <target name="test">
+        <delete>
+            <fileset dir="${basedir}" includes="soapui*.log"/>
+        </delete>
         <delete dir="${test.results.dir}"/>
         <mkdir dir="${test.results.dir}"/>
-        <exec executable="${soapui.executable}" vmlauncher="false" failonerror="yes">
+        <copy todir="${soapui.bin.dir}/ext" overwrite="false">
+            <fileset dir="${temp.staging.dir}/ThirdParty/MySQLDB">
+                <include name="mysql-connector-java-*-bin.jar"/>
+            </fileset>
+        </copy>
+        <exec executable="${soapui.bin.dir}/${soapui.executable.name}" vmlauncher="false" failonerror="yes">
             <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin"/>
-            <arg line="-j -f ${test.results.dir} -r ${temp.staging.dir}/ValidationSuite/1-InternalSelfTest_g0-soapui-project.xml"/>
+            <arg line="-j -f ${test.results.dir} -t ${soapui.settings.file} -r ${temp.staging.dir}/ValidationSuite/1-InternalSelfTest_g0-soapui-project.xml"/>
         </exec>
     </target>
     

@@ -1,0 +1,10 @@
+bin/
+src/.temp_staging/
+src/NHINC/
+src/glassfish-2.1.1/
+src/global-groovy.log
+src/soapui/
+src/install.debug.log
+src/soapui-errors.log
+src/soapui.log
+src/soapui_output/
