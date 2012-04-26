@@ -2,8 +2,8 @@
 
 <project name="CONNECT.Validation.Testing.Driver" default="install-and-test" basedir=".">
 
-    <property name="binary.zip.file.name" value="CONNECT_Binaries_${version.number}.zip"/>
-    <property name="already.built.binary.url" value="http://192.168.35.19:8080/job/${target.project}/lastSuccessfulBuild/artifact/target/${binary.zip.file.name}"/>
+    <property name="binary.zip.file.name" value="CONNECT_Binaries_${version}.zip"/>
+    <property name="already.built.binary.url" value="http://192.168.35.19:8080/job/${project}/lastSuccessfulBuild/artifact/target/${binary.zip.file.name}"/>
     <property name="temp.staging.dir" value="${basedir}/.temp_staging"/>
     <property name="binary.zip.file" value="${temp.staging.dir}/${binary.zip.file.name}"/>
     <property name="glassfish.home" value="${basedir}/glassfish-2.1.1"/>
@@ -56,7 +56,7 @@
                 <include name="mysql-connector-java-*-bin.jar"/>
             </fileset>
         </copy>
-        <exec executable="${soapui.bin.dir}/${soapui.executable.name}" vmlauncher="false" failonerror="yes">
+        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="yes">
             <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin"/>
             <arg line="-j -f ${test.results.dir} -t ${soapui.settings.file} -r ${temp.staging.dir}/ValidationSuite/1-InternalSelfTest_g0-soapui-project.xml"/>
         </exec>
