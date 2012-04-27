@@ -17,7 +17,6 @@
     </target>
     
     <target name="install">
-        <antcall target="stop.glassfish.if.is.present"/>
         <delete dir="${temp.staging.dir}"/>
         <mkdir dir="${temp.staging.dir}"/>
         <delete dir="${glassfish.home}"/>
