@@ -51,7 +51,7 @@
         </delete>
         <delete dir="${test.results.dir}"/>
         <mkdir dir="${test.results.dir}"/>
-        <copy todir="${soapui.bin.dir}/ext" overwrite="false">
+        <copy todir="${soapui.bin}/ext" overwrite="false">
             <fileset dir="${temp.staging.dir}/ThirdParty/MySQLDB">
                 <include name="mysql-connector-java-*-bin.jar"/>
             </fileset>
