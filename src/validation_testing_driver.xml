@@ -10,6 +10,12 @@
     <available file="${glassfish.home}/bin" type="dir" property="glassfish.bin.is.present"/>
     <property name="test.results.dir" value="${basedir}/soapui_output"/>
     <property name="soapui.settings.file" value="${basedir}/soapui-settings.xml"/>
+    <condition property="asadmin.executable" value="${glassfish.home}/bin/asadmin">
+      <os family="Unix" />
+    </condition>
+    <condition property="asadmin.executable" value="${glassfish.home}/bin/asadmin.bat">
+      <os family="Windows" />
+    </condition>
     
     <target name="install-and-test" depends="install">
         <antcall target="test"/>
@@ -69,9 +75,9 @@
     </target>
     
     <target name="stop.glassfish">
-        <ant antfile="${temp.staging.dir}/deploy.xml" target="deploy.glassfish.stop.server" dir="${temp.staging.dir}">
-            <property name="glassfish.home" value="${glassfish.home}"/>
-        </ant>
+        <exec executable="${asadmin.executable}">
+            <arg line="stop-domain ${deployment.glassfish.domain.name}"/>
+        </exec>
     </target>
     
     <target name="start.glassfish">
