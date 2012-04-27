@@ -19,10 +19,10 @@
     <target name="install">
         <delete dir="${temp.staging.dir}"/>
         <mkdir dir="${temp.staging.dir}"/>
+        <antcall target="stop.glassfish.if.is.present"/>
+        <delete dir="${glassfish.home}"/>
         <get src="${already.built.binary.url}" dest="${binary.zip.file}"/>
         <unzip src="${binary.zip.file}" dest="${temp.staging.dir}"/>
-        <antcall target="stop.glassfish.if.is.present"/>
-        <delete dir="${basedir}/glassfish-2.1.1"/>
         <propertyfile file="${temp.staging.dir}/local.install.properties">
             <entry  key="glassfish.install.dir.name" value="glassfish-2.1.1"/>
             <entry  key="glassfish.install.dir.root" value="${basedir}"/>
