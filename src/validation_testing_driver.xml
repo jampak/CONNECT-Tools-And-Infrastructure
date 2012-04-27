@@ -17,9 +17,9 @@
     </target>
     
     <target name="install">
+        <antcall target="stop.glassfish.if.is.present"/>
         <delete dir="${temp.staging.dir}"/>
         <mkdir dir="${temp.staging.dir}"/>
-        <antcall target="stop.glassfish.if.is.present"/>
         <delete dir="${glassfish.home}"/>
         <get src="${already.built.binary.url}" dest="${binary.zip.file}"/>
         <unzip src="${binary.zip.file}" dest="${temp.staging.dir}"/>
