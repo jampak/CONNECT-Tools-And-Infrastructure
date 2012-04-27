@@ -21,7 +21,7 @@
         <mkdir dir="${temp.staging.dir}"/>
         <get src="${already.built.binary.url}" dest="${binary.zip.file}"/>
         <unzip src="${binary.zip.file}" dest="${temp.staging.dir}"/>
-        <antcall target="stop.glassfish"/>
+        <antcall target="stop.glassfish.if.is.present"/>
         <delete dir="${basedir}/glassfish-2.1.1"/>
         <propertyfile file="${temp.staging.dir}/local.install.properties">
             <entry  key="glassfish.install.dir.name" value="glassfish-2.1.1"/>
@@ -46,6 +46,8 @@
     </target>
     
     <target name="test">
+        <antcall target="stop.glassfish"/>
+        <antcall target="start.glassfish"/>
         <delete>
             <fileset dir="${basedir}" includes="soapui*.log"/>
         </delete>
@@ -60,10 +62,21 @@
             <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin"/>
             <arg line="-j -f ${test.results.dir} -t ${soapui.settings.file} -r ${temp.staging.dir}/ValidationSuite/1-InternalSelfTest_g0-soapui-project.xml"/>
         </exec>
+        <antcall target="stop.glassfish"/>
     </target>
     
-    <target name="stop.glassfish" if="glassfish.bin.is.present">
+    <target name="stop.glassfish.if.is.present" if="glassfish.bin.is.present">
+        <antcall target="stop.glassfish"/>
+    </target>
+    
+    <target name="stop.glassfish">
         <ant antfile="${temp.staging.dir}/deploy.xml" target="deploy.glassfish.stop.server" dir="${temp.staging.dir}">
+            <property name="glassfish.home" value="${glassfish.home}"/>
+        </ant>
+    </target>
+    
+    <target name="start.glassfish">
+        <ant antfile="${temp.staging.dir}/deploy.xml" target="deploy.glassfish.start.server" dir="${temp.staging.dir}">
             <property name="glassfish.home" value="${glassfish.home}"/>
         </ant>
     </target>
