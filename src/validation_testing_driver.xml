@@ -76,7 +76,7 @@
     
     <target name="stop.glassfish">
         <exec executable="${asadmin.executable}">
-            <arg line="stop-domain ${deployment.glassfish.domain.name}"/>
+            <arg line="stop-domain domain1"/>
         </exec>
     </target>
     
