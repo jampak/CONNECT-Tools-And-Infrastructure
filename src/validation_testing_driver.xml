@@ -49,7 +49,7 @@
                 </fileset>
             </classpath>
         </taskdef>
-        <xmltask source="${temp.staging.dir}/deploy.application.list.xml">
+        <xmltask source="${temp.staging.dir}/deploy.application.list.xml" dest="${temp.staging.dir}/deploy.application.list.xml">
             <replace path="//should.deploy/text()[../preceding-sibling::name/text()[contains(., 'GUI')]]" withText="false"/>
         </xmltask>
         <ant antfile="${temp.staging.dir}/build.xml" dir="${temp.staging.dir}"/>
