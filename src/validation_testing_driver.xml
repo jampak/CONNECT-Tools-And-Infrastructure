@@ -19,7 +19,6 @@
     
     <target name="install-and-test" depends="install">
         <antcall target="test"/>
-        <antcall target="cleanup"/>
     </target>
     
     <target name="install">
