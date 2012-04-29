@@ -42,6 +42,16 @@
             <entry  key="cert.store.name" value="cacerts"/>
             <entry  key="skip.backup" value="true"/>
         </propertyfile>
+        <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+            <classpath>
+                <fileset dir="${temp.staging.dir}/ThirdParty/AntExtraLibs">
+                    <include name="xmltask-*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+        <xmltask source="${deploy.application.list.file.path}">
+            <replace path="//should.deploy/text()[../preceding-sibling::name/text()[contains(., 'GUI')]]" withText="false"/>
+        </xmltask>
         <ant antfile="${temp.staging.dir}/build.xml" dir="${temp.staging.dir}"/>
         <antcall target="test"/>
     </target>
