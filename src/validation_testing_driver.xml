@@ -3,7 +3,7 @@
 <project name="CONNECT.Validation.Testing.Driver" default="install-and-test" basedir=".">
 
     <property name="binary.zip.file.name" value="CONNECT_Binaries_${version}.zip"/>
-    <property name="already.built.binary.url" value="http://192.168.35.19:8080/job/${project}/lastSuccessfulBuild/artifact/target/${binary.zip.file.name}"/>
+    <property name="already.built.binary.url" value="http://192.168.35.19:8080/job/${project}/${build}/artifact/target/${binary.zip.file.name}"/>
     <property name="temp.staging.dir" value="${basedir}/.temp_staging"/>
     <property name="binary.zip.file" value="${temp.staging.dir}/${binary.zip.file.name}"/>
     <property name="glassfish.home" value="${basedir}/glassfish-2.1.1"/>
